@@ -11,6 +11,7 @@ const execAsync = (cmd, options = {
   return new Promise((resolve, reject) => {
     exec(cmd, options, (code, stdout, stderr) => {
       if (stderr) {
+        console.log({ error: stderr });
         return reject(stderr)
       }
       resolve(stdout)
@@ -18,7 +19,7 @@ const execAsync = (cmd, options = {
   })
 }
 
-function readYml (path) {
+function readYml(path) {
   // Get document, or throw exception on error
   return yaml.load(
     readFileSync(path, 'utf8')
@@ -26,7 +27,7 @@ function readYml (path) {
 }
 const { log } = console
 
-async function run () {
+async function run() {
   log('start deploy')
   copyFileSync(
     resolve(__dirname, '../package.json'),
@@ -44,7 +45,7 @@ async function run () {
   log(`run cmd: ${cmd1}`)
   const res = await execAsync(cmd1).catch(log)
   console.log(res)
-  const cmd2 = '../node_modules/.bin/sls deploy'
+  const cmd2 = "AWS_SDK_LOAD_CONFIG=true NODE_OPTIONS='--no-warnings' ../node_modules/.bin/sls deploy --force -v"
   log(`run cmd: ${cmd2}`)
   const res1 = await execAsync(cmd2).catch(log)
   console.log(res1)

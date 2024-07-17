@@ -31,7 +31,7 @@ const addCommands = [
 const githubEvents = events().map(t => t.id)
 const { RINGCENTRAL_APP_SERVER } = process.env
 
-function buildWelcomeMessage (bot, group, conf = {}) {
+function buildWelcomeMessage(bot, group, conf = {}) {
   const {
     isAuth, extraMessage
   } = conf
@@ -59,7 +59,7 @@ function buildWelcomeMessage (bot, group, conf = {}) {
     ? parser(
       'Please click **Authorize** button to authorize first before use bot command or interactive with card.')
     : parser(
-    `${pre}I am **GitHub bot**, please click the **Click to config** button below to set GitHub repo events that will be send to this chat group, I will post this message again if you post any message and **AT** me
+      `${pre}I am **GitHub bot**, please click the **Click to config** button below to set GitHub repo events that will be send to this chat group, I will post this message again if you post any message and **AT** me
 
     You can also create webhook by command: eg: \`@GitHubBot add ringcentral/test-repo issues,pull_request\`, more bot commands detail please check [Create webhook from github bot command](https://github.com/ringcentral/github-add-in/wiki/Create-webhook-from-github-bot-command)`)
 
@@ -85,12 +85,12 @@ function buildWelcomeMessage (bot, group, conf = {}) {
   }))
 }
 
-export async function botJoin (bot, group) {
+export async function botJoin(bot, group) {
   const msg1 = buildWelcomeMessage(bot, group)
   await bot.sendAdaptiveCard(group.id, msg1)
 }
 
-async function parseCommand (text, userId) {
+async function parseCommand(text, userId) {
   const arr = text.split(/ +/)
   const cmd = arr[0]
   const repoOrg = arr[1] || ''
@@ -117,14 +117,14 @@ async function parseCommand (text, userId) {
   }
 }
 
-async function sendAuthMessage (bot, groupId) {
+async function sendAuthMessage(bot, groupId) {
   const msg = buildWelcomeMessage(bot, { id: groupId }, {
     isAuth: true
   })
   await bot.sendAdaptiveCard(groupId, msg)
 }
 
-async function createWebhook (
+async function createWebhook(
   {
     events,
     repo,
@@ -186,8 +186,7 @@ async function createWebhook (
       config: {
         url,
         content_type: 'json',
-        insecure_ssl: 0,
-        digest: 1
+        insecure_ssl: 0
       },
       events
     },
@@ -208,7 +207,7 @@ async function createWebhook (
   }
 }
 
-export async function handleMessage (
+export async function handleMessage(
   bot,
   group,
   text,

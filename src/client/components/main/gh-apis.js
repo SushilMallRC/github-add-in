@@ -204,7 +204,7 @@ await octokit.request('POST /repos/{owner}/{repo}/hooks', {
 
 import fetch from '../../lib/fetch'
 
-function handleError (
+function handleError(
   e,
   data,
   url,
@@ -216,7 +216,7 @@ function handleError (
   console.log('url:', url)
   console.log('data:', data)
 }
-export async function request ({
+export async function request({
   path = '/api/action',
   action = 'op',
   data,
@@ -254,13 +254,13 @@ export async function request ({
   }
 }
 
-export function getOrgs () {
+export function getOrgs() {
   return request({
     url: '/user/orgs?per_page=100'
   })
 }
 
-export async function getRepos (org, isUser) {
+export async function getRepos(org, isUser) {
   let all = []
   let page = 1
   let arr = []
@@ -283,7 +283,7 @@ export async function getRepos (org, isUser) {
   return all
 }
 
-export async function createGhWebhook (org, repo, url, events, password) {
+export async function createGhWebhook(org, repo, url, events, password) {
   return request({
     url: `/repos/${org}/${repo}/hooks`,
     method: 'POST',
@@ -291,23 +291,21 @@ export async function createGhWebhook (org, repo, url, events, password) {
       config: {
         url,
         content_type: 'json',
-        insecure_ssl: 0,
-        password,
-        digest: 1
+        insecure_ssl: 0
       },
       events
     }
   })
 }
 
-export async function delGhWebhook (org, repo, id) {
+export async function delGhWebhook(org, repo, id) {
   return request({
     url: `/repos/${org}/${repo}/hooks/${id}`,
     method: 'DELETE'
   })
 }
 
-export async function updateGhWebhook (org, repo, id, events) {
+export async function updateGhWebhook(org, repo, id, events) {
   return request({
     url: `/repos/${org}/${repo}/hooks/${id}`,
     method: 'PATCH',
