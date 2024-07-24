@@ -1,5 +1,5 @@
 
-# Github add-in for RingCentral app
+# Github add-in for RingCentral apps
 
 ## Use
 
